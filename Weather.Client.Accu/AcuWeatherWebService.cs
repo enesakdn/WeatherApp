@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -63,33 +64,21 @@ namespace Weather.Client.Accu
         }
         public static AcuWindResponse GetWind(AcuWindRequest request)
         {
-            return new AcuWindResponse
+            var hours = Enumerable.Range(0, 23); // 0, 1 , 2, ..., 23
+            var response = new AcuWindResponse();
+            var items = hours.Select(a => new AcuWindResponseItem()
             {
-                Items = new List<AcuWindResponseItem>
-                {
-                    new AcuWindResponseItem
-                    {
-                        SpeedKmh = 15.5,
-                        DirectionDegrees = 90,
-                        Trend = "Stable",
-                        Hour = 12
-                    },
-                    new AcuWindResponseItem
-                    {
-                        SpeedKmh = 20.2,
-                        DirectionDegrees = 180,
-                        Trend = "Increasing",
-                        Hour = 13
-                    },
-                    new AcuWindResponseItem
-                    {
-                        SpeedKmh = 18.9,
-                        DirectionDegrees = 270,
-                        Trend = "Decreasing",
-                        Hour = 14
-                    }
-                }
-            };
+                Date = DateTime.Now.Date.AddHours(a),
+                SpeedKmh = new Random().Next(2, 50),
+                DirectionDegrees = 90 + new Random().Next(120, 130),
+                Trend = "Stable"
+            });
+            response.Items = items.Where(a => a.Date >= request.StartDate && a.Date <= request.EndDate).ToList();
+
+            if (response.Items.Count == 0)
+                throw new NoNullAllowedException("No data found for the given date range.");
+
+            return response;
         }
     }
 }

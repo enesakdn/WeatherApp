@@ -17,9 +17,9 @@ namespace Weather.Client.Accu.Wind
 
     public class AcuWindResponseItem
     {
+        public DateTime Date { get; set; }
         public double SpeedKmh { get; set; } 
         public double DirectionDegrees { get; set; }
         public string Trend { get; set; } 
-        public int Hour { get; set; }
     }
 }
