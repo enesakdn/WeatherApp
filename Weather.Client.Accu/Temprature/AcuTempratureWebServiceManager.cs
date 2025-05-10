@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Weather.Client.Accu
+namespace Weather.Client.Accu.Temprature
 {
     public class AcuTempratureWebServiceManager : WeathertTempartureWebServiceManager
     {
@@ -17,7 +17,6 @@ namespace Weather.Client.Accu
             // Response
             AcuTempratureResponse response = AcuWeatherWebService.GetTemprature(request);
 
-            // Convert (Extensions, Select, ConverterManager, Constructor, Method, Abtract Method)
             var fahrenayt = response.items.FirstOrDefault().Fehranayt;
 
             var celcius = FormatTemperatureSabit(fahrenayt);

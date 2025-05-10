@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Weather.Client.Accu
+namespace Weather.Client.Accu.Temprature
 {
     public class AcuTempratureRequest
     {
